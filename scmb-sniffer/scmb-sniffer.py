@@ -132,12 +132,21 @@ class OVServer(object):
         channel.start_consuming()
 
     def callback(self, ch, method, properties, body):
-        msg = json.loads(body.decode('utf-8'))
+        msg = ''
+        payload = json.loads(body.decode('utf-8'))
         if self.print_timestamp:
-            print(msg['timestamp'] + ': ', end='', flush=True)
+            msg = payload['timestamp']
         if self.print_routing_key:
-            print(method.routing_key)
+            if len(msg) > 0:
+                msg += ': '
+            msg += method.routing_key
         if self.print_json:
+            if len(msg) > 0:
+                msg += ': '
+            msg += json.dumps(payload)
+        if len(msg) == 0:
+            print('Message received')
+        else:
             print(msg)
 
 if __name__ == '__main__':

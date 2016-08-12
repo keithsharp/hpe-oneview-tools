@@ -42,4 +42,5 @@ will match all messages published on the SCMB.
 
 By default the output is the routing key of the SCMB message you can modify this
 by using the -t flag to prefix the output with a timestamp and the -j flag to
-print the JSON body of the message.
+print the JSON body of the message.  The -r flag suppresses printing the routing
+key.
